@@ -1,5 +1,11 @@
 
 public class Menus {
+    /**
+     * @date 17.3.2017
+     * @author Yipeng.Zhang
+     * @version 1.0
+     * @Description including all of menus
+     */
     public void sportMenus() {
         System.out.println("Select a sport from 1 to 3");
         System.out.println("1. Swimming");
