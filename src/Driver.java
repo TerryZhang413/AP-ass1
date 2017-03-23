@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
 public class Driver {
     private ArrayList<Athlete> athletes = new ArrayList<Athlete>();
     private ArrayList<Official> officials = new ArrayList<Official>();
@@ -51,7 +52,62 @@ public class Driver {
         } while (optionNumber != 6);
 
     }
+    
+    private void showResult(int index) {
+        String official;
+        String[] athleteinf = new String[5];
+        int time = 0;
+        int rank = 0;
+        int countAthlete = 0;
+        if (games.get(index).getResults().size() == 0)
+            return;// game maybe haven't run yet
+        official = getOffName(games.get(index).getOfficialID());
+        countAthlete = games.get(index).getAthletes().size();
+        println("==============================================");
+        println("Game Number: " + games.get(index).getGameID());
+        println("Official: " + official);
+        println("Game: " + games.get(index).getGameID());
+        print("Name", 15);
+        print("Age", 5);
+        print("State", 7);
+        print("Athlete Type", 15);
+        print("Time", 5);
+        println("Rank", 5);
+        for (int i = 0; i < countAthlete; i++) {
+            athleteinf = getAthleteInf(games.get(index).getAthletes().get(i));
+            time = games.get(index).getResults().get(i);
+            rank = games.get(index).getRanks().get(i);
 
+            print(athleteinf[0], 15);
+            print(athleteinf[1], 5);
+            print(athleteinf[2], 7);
+            print(athleteinf[3], 15);
+            print(time, 5);
+            println(rank, 5);
+        }
+    }
+    
+    private String getOffName(String userID) {
+        // get officer's id based on userID
+        for (Official official : officials) {
+            if (official.getUserID().equals(userID))
+                return official.getName();
+        }
+        return null;
+    }
+    
+    private void showFinalResult() {
+        // display all of results respectively
+        int countGame = games.size();
+        if (countGame == 0) {
+            println("No game record!");
+            return;
+        }
+        for (int i = 0; i < countGame; i++) {
+            showResult(i);
+        }
+    }
+    
     private void showFinalPoint() {
         // display all of information about athlete
         String[] athleteInf = new String[5];
