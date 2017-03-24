@@ -248,6 +248,15 @@ public class Driver {
 
     }
     
+    private String getOfficial() 
+    {
+		return null;}
+    
+    private ArrayList<String> getAthlete(int gameType) {
+		return null;
+    }
+    
+    
     private String[] getAthleteInf(String userID) {
         // Get athlete's information based on userID
         String[] athleteinf = new String[5];
