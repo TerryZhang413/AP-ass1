@@ -1,5 +1,9 @@
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
+
+import Ozlympic.Game;
+import Ozlympic.Menus;
 
 
 public class Driver {
@@ -132,6 +136,118 @@ public class Driver {
         }
     }
 
+    private int randomTime(int miniTime, int maxTime) {
+        // generate a random time from minimum time to maximum time
+        Random random = new Random();
+        return random.nextInt(maxTime - miniTime + 1) + miniTime;
+
+    }
+    
+    private int selectGame(int gameType, int predictIndex) {
+        // select a game type from 1 to 3
+        Menus menus = new Menus();
+        int newGameType = 0;
+        menus.sportMenus();
+        do {
+            try {
+                newGameType = keyBoard.nextInt();
+                if ((newGameType < 1) || (newGameType > 3)) {
+                    println("Error: The number must be in 1 to 3!");
+                    print("Enter an option:");
+                    continue;
+                }
+                if (newGameType == gameType)// Type doesn't change
+                    return gameType;
+                // type changed, initialize game type & prediction
+                gameType = newGameType;
+                if (games.size() > 0) { // try to find unused one
+                    for (int i = 0; i < games.size(); i++) {
+                        if ((games.get(i).getResults().size() == 0)
+                                && (games.get(i).getType() == gameType)) {
+                            gameIDIndex = i;
+                            return newGameType;
+                        }
+                    }
+                }
+                // create a new game
+                newGame(gameType);
+            } catch (Exception e) {
+                println("Error: Input must be an integer number!");
+                print("Enter an option:");
+                keyBoard.next();
+            }
+        } while ((newGameType < 1) || (newGameType > 3));
+        return gameType;
+    }
+    
+    private String getMaxGameID(String gameID, int gameType) {
+        String maxGameID = "null";
+        int newGameID = 0;
+        int stringLength = 0;
+        try {
+            stringLength = gameID.length();
+            gameID = gameID.substring(1, stringLength);
+            newGameID = Integer.valueOf(gameID);
+            newGameID++;
+            maxGameID = String.valueOf(newGameID);
+            switch (gameType) {
+                case 1:
+                    maxGameID = "S" + maxGameID;
+                    break;
+                case 2:
+                    maxGameID = "C" + maxGameID;
+                    break;
+                case 3:
+                    maxGameID = "R" + maxGameID;
+            }
+            return maxGameID;
+        } catch (Exception e) {
+            println("Cannn't get maxGameID!");
+            return null;
+        }
+
+    }
+    
+    private void newGame(int gameType) {
+        String maxGameID = "null";
+        String officialID;
+        ArrayList<String> presentAthlete = new ArrayList<String>();
+        gameIDIndex = games.size();
+        if (games.size() > 0) {
+            for (int i = games.size() - 1; i >= 0; i--) {
+                if (games.get(i).getType() == gameType) {
+                    maxGameID = games.get(i).getGameID();
+                    break;
+                }
+            }
+        }
+        if (maxGameID.equals("null")) {
+            maxGameID = "00";
+            gameIDIndex = 0;
+        }
+        try {
+            maxGameID = getMaxGameID(maxGameID, gameType);
+            presentAthlete = getAthlete(gameType);
+            officialID = getOfficial();
+            if (presentAthlete == null) {
+                println("Number of athletes is less than 4!");
+                gameIDIndex = -1;
+            }
+            if (officialID == null) {
+                println("Can not find any official!");
+                gameIDIndex = -1;
+            }
+            if (gameIDIndex != -1) {
+                games.add(new Game(maxGameID, gameType, officialID,
+                        presentAthlete));
+                gameIDIndex = games.size() - 1;
+            }
+        } catch (Exception e) {
+            println("Cann't create a new game!");
+        }
+
+    }
+    
     private String[] getAthleteInf(String userID) {
         // Get athlete's information based on userID
         String[] athleteinf = new String[5];
