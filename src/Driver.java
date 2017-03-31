@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-
 public class Driver {
     private ArrayList<Athlete> athletes = new ArrayList<Athlete>();
     private ArrayList<Official> officials = new ArrayList<Official>();
@@ -11,6 +10,7 @@ public class Driver {
     private final int MIN_ATHLETE = 4;// minimum athlete in a game
     private int gameIDIndex = -1;// the present game index
     private Scanner keyBoard = new Scanner(System.in);
+
 
     public void option() {
         // display menus, input option, switch to different functions -Yipeng
@@ -387,7 +387,134 @@ public class Driver {
         }
     }
     
+    private void starGame(int gameType, int predictIndex) {
+        int maxTime = 0, miniTime = 0;
+        int resultCount;
+        ArrayList<Integer> results = new ArrayList<Integer>();
+        ArrayList<Integer> ranks = new ArrayList<Integer>();
+        if (gameType == -1) {
+            println("Error: Have to choose a type of game first!");
+            return;
+        }
+        try {
+            switch (gameType) {
+                case 1:
+                    miniTime = 10;
+                    maxTime = 20;
+                    break;
+                case 2:
+                    miniTime = 100;
+                    maxTime = 200;
+                    break;
+                case 3:
+                    miniTime = 500;
+                    maxTime = 800;
+                    break;
+            }
+            resultCount = games.get(gameIDIndex).getAthletes().size();
+            for (int i = 0; i < resultCount; i++) {
+                results.add(randomTime(miniTime, maxTime));
+            }
+            games.get(gameIDIndex).setResults(results);
+            ranks = rank(gameIDIndex);
+            games.get(gameIDIndex).setRanks(ranks);
+            refreshPoint();
+            showResult(gameIDIndex);
+            showPredict(ranks, predictIndex);
+            newGame(gameType);// prepare next game;
+        } catch (Exception e) {
+            println("method 'starGame' is error!");
+        }
+    }
 
+    private void showPredict(ArrayList<Integer> ranks, int predictIndex) {
+        if (predictIndex != -1) {
+            if (ranks.get(predictIndex - 1) == 1) {
+                println("************************************************");
+                println("*Congratulations! Your prediction is right!!!!!*");
+                println("************************************************");
+            }
+        }
+    }
+
+    private void refreshPoint() {
+        // find top 3 and add point into their documents
+        int resultCount;
+        resultCount = games.get(gameIDIndex).getAthletes().size();
+        for (int i = 0; i < resultCount; i++) {
+            switch (games.get(gameIDIndex).getRanks().get(i)) {
+                case 1:
+                    addPoint(games.get(gameIDIndex).getAthletes().get(i), 5);
+                    break;
+                case 2:
+                    addPoint(games.get(gameIDIndex).getAthletes().get(i), 2);
+                    break;
+                case 3:
+                    addPoint(games.get(gameIDIndex).getAthletes().get(i), 1);
+                    break;
+            }
+        }
+    }
+
+    private void addPoint(String athleteID, int addPoint) {
+        // add point based on users' ID and point
+        int athleteCount;
+        int point = 0;
+        athleteCount = athletes.size();
+        for (int i = 0; i < athleteCount; i++) {
+            if (athleteID == athletes.get(i).getUserID()) {
+                point = athletes.get(i).getPoint() + addPoint;
+                athletes.get(i).setPoint(point);
+                return;
+            }
+        }
+
+    }
+
+    private ArrayList<Integer> rank(int index) {
+        ArrayList<Integer> ranks = new ArrayList<Integer>();
+        ArrayList<Integer> results = games.get(index).getResults();
+        int sizeResult = results.size();
+        boolean existence;// weather this rank is created
+        ranks.add(1);// fist one is the least at first
+        for (int i = 1; i < sizeResult; i++) {
+            existence = false;
+            for (int n = 0; n < i; n++) {
+                if (results.get(n) > results.get(i)) {
+                    if (existence) {
+                        if (ranks.get(i) > ranks.get(n)) {
+                            // get the smaller one's rank
+                            ranks.set(i, ranks.get(n));
+                        }
+                        // add 1 on smaller one
+                        ranks.set(n, ranks.get(n) + 1);
+
+                    } else {
+                        // get the smaller one's rank
+                        ranks.add(ranks.get(n));
+                        // add 1 on smaller one
+                        ranks.set(n, ranks.get(n) + 1);
+                        existence = true;
+                    }
+                } else if (results.get(n) == results.get(i)) {
+                    if (existence) {
+                        // get this one's rank
+                        ranks.set(i, ranks.get(n));
+                    } else {
+                        // get this one's rank
+                        ranks.add(ranks.get(n));
+                        existence = true;
+                    }
+                }
+            }
+            if (!existence) {
+                // cann't find any one smaller than this one
+                ranks.add(i + 1);
+            }
+        }
+        return ranks;
+    }
+    
     private void print(String message) {
         System.out.print(message);
     }
