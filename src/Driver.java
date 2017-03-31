@@ -3,7 +3,6 @@ import java.util.Random;
 import java.util.Scanner;
 
 
-
 public class Driver {
     private ArrayList<Athlete> athletes = new ArrayList<Athlete>();
     private ArrayList<Official> officials = new ArrayList<Official>();
