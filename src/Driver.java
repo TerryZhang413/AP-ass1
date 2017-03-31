@@ -3,6 +3,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 
+
 public class Driver {
     private ArrayList<Athlete> athletes = new ArrayList<Athlete>();
     private ArrayList<Official> officials = new ArrayList<Official>();
@@ -13,7 +14,7 @@ public class Driver {
     private Scanner keyBoard = new Scanner(System.in);
 
     public void option() {
-        // display menus, input option, switch to different functions
+        // display menus, input option, switch to different functions -Yipeng
         int optionNumber = -1; // index of menus option
         Menus menus = new Menus();
         do {
@@ -53,7 +54,7 @@ public class Driver {
         } while (optionNumber != 6);
 
     }
-    
+    //display the result on screen -Yanjie
     private void showResult(int index) {
         String official;
         String[] athleteinf = new String[5];
@@ -87,18 +88,46 @@ public class Driver {
             println(rank, 5);
         }
     }
-    
+    // get officer's id based on userID -Yanjie
     private String getOffName(String userID) {
-        // get officer's id based on userID
+        
         for (Official official : officials) {
             if (official.getUserID().equals(userID))
                 return official.getName();
         }
         return null;
     }
-    
+ // Get athlete's information based on userID -Yipeng
+    private String[] getAthleteInf(String userID) {
+        
+        String[] athleteinf = new String[5];
+        for (Athlete athlete : athletes) {
+            if (athlete.getUserID().equals(userID)) {
+                athleteinf[0] = athlete.getName();
+                athleteinf[1] = String.valueOf(athlete.getAge());
+                athleteinf[2] = athlete.getState();
+                switch (athlete.getAthleteType()) {
+                case 1:
+                    athleteinf[3] = "Swimmer";
+                    break;
+                case 2:
+                    athleteinf[3] = "Cyclist";
+                    break;
+                case 3:
+                    athleteinf[3] = "Sprinter";
+                    break;
+                case 4:
+                    athleteinf[3] = "Super Athlete";
+                    break;
+                }
+                athleteinf[4] = String.valueOf(athlete.getPoint());
+            }
+        }
+        return athleteinf;
+    }
+    // display all of results respectively -Yanjie
     private void showFinalResult() {
-        // display all of results respectively
+        
         int countGame = games.size();
         if (countGame == 0) {
             println("No game record!");
@@ -108,9 +137,9 @@ public class Driver {
             showResult(i);
         }
     }
-    
+ // display all of information about athlete -Yanjie
     private void showFinalPoint() {
-        // display all of information about athlete
+        
         String[] athleteInf = new String[5];
         int countAthlete = 0;
         print("Name", 15);
@@ -132,18 +161,16 @@ public class Driver {
             }
         }
     }
-
+ // generate a random time from minimum time to maximum time -Yanjie
     private int randomTime(int miniTime, int maxTime) {
-        // generate a random time from minimum time to maximum time
         Random random = new Random();
         return random.nextInt(maxTime - miniTime + 1) + miniTime;
 
     }
-    
+ // select a game type from 1 to 3  -Yanjie
     private int selectGame(int gameType, int predictIndex) {
-        // select a game type from 1 to 3
         Menus menus = new Menus();
-        int newGameType = 0;
+        int newGameType = 0;   //initial the ganme type
         menus.sportMenus();
         do {
             try {
@@ -176,13 +203,13 @@ public class Driver {
         } while ((newGameType < 1) || (newGameType > 3));
         return gameType;
     }
-    
+     //depending on the game type return the max game id -Yanjie
     private String getMaxGameID(String gameID, int gameType) {
         String maxGameID = "null";
         int newGameID = 0;
         int stringLength = 0;
         try {
-            stringLength = gameID.length();
+            stringLength = gameID.length();                
             gameID = gameID.substring(1, stringLength);
             newGameID = Integer.valueOf(gameID);
             newGameID++;
@@ -198,13 +225,13 @@ public class Driver {
                     maxGameID = "R" + maxGameID;
             }
             return maxGameID;
-        } catch (Exception e) {
+        } catch (Exception e) {                       //error 
             println("Cannn't get maxGameID!");
             return null;
         }
 
     }
-    
+    //denpending on the ganme type, create a new game  -Yanjie
     private void newGame(int gameType) {
         String maxGameID = "null";
         String officialID;
@@ -226,7 +253,7 @@ public class Driver {
             maxGameID = getMaxGameID(maxGameID, gameType);
             presentAthlete = getAthlete(gameType);
             officialID = getOfficial();
-            if (presentAthlete == null) {
+            if (presentAthlete == null) {             //every error
                 println("Number of athletes is less than 4!");
                 gameIDIndex = -1;
             }
@@ -244,43 +271,123 @@ public class Driver {
         }
 
     }
-    
-    private String getOfficial() 
-    {
-		return null;}
-    
+    // get offical information -Yanjie
+    private String getOfficial() {
+        Random ranIndex = new Random();
+        int sizeList;
+        String officialID = new String();
+        sizeList = officials.size();
+        if (sizeList > 0) {
+            sizeList--;
+            officialID = officials.get(ranIndex.nextInt(sizeList)).getUserID();
+            getClass();
+            return officialID;   //return the offical
+        } else {
+            return null;
+        }
+    }
+    //get athlete list  -Yanjie
     private ArrayList<String> getAthlete(int gameType) {
-		return null;
+        try {
+            ArrayList<String> temporaryList = new ArrayList<String>();
+            // Finding athletes who are satisfied type of sport.
+            for (Athlete athlete : athletes) {
+                if ((athlete.getAthleteType() == gameType)
+                        || (athlete.getAthleteType() == 4)) {
+                    temporaryList.add(athlete.getUserID());
+                }
+            }
+            if (temporaryList.size() <= MIN_ATHLETE) {
+                // no enough athletes
+                return null;
+            } else {
+                Random ranIndex = new Random();   //make a random number
+                int sizeList;
+                while (temporaryList.size() > MAX_ATHLETE) {
+                    sizeList = temporaryList.size() - 1;
+                    temporaryList.remove(ranIndex.nextInt(sizeList));
+                }
+                return temporaryList;   //return the athlete list
+            }
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    //predict the result -Yanjie
+    private int predict(int predictIndex) {
+        // set prediction and check if it's legal
+        int newIndex = -1;
+        int athleteCount;
+        if (gameIDIndex == -1) {
+            println("Have to select a game first!");
+            return -1;
+        } else {
+            showGameInf(gameIDIndex);
+            athleteCount = games.get(gameIDIndex).getAthletes().size();
+        }
+        print("Choose an athlete:");
+        do {
+            try {
+                newIndex = keyBoard.nextInt();
+                if ((newIndex < 1) || (newIndex > athleteCount)) {
+                    println("The number must be in 1 to " + athleteCount + "!");
+                    print("Enter an option:");
+                    continue;
+                }
+                predictIndex = newIndex - 1;
+            } catch (Exception e) {
+                println("Input must be an integer number!");
+                print("Enter an option:");
+                keyBoard.next();
+            }
+        } while (predictIndex == -1);// -1 means haven't a prediction
+        return newIndex;
     }
     
-    
-    private String[] getAthleteInf(String userID) {
-        // Get athlete's information based on userID
-        String[] athleteinf = new String[5];
-        for (Athlete athlete : athletes) {
-            if (athlete.getUserID().equals(userID)) {
-                athleteinf[0] = athlete.getName();
-                athleteinf[1] = String.valueOf(athlete.getAge());
-                athleteinf[2] = athlete.getState();
-                switch (athlete.getAthleteType()) {
-                case 1:
-                    athleteinf[3] = "Swimmer";
-                    break;
-                case 2:
-                    athleteinf[3] = "Cyclist";
-                    break;
-                case 3:
-                    athleteinf[3] = "Sprinter";
-                    break;
-                case 4:
-                    athleteinf[3] = "Super Athlete";
+    // show game information in prediction menus -Yanjie
+    private void showGameInf(int index) {
+        String athleteName = null;
+        String state = null;
+        String age = null;
+        String athleteType = null;
+        String point = null;
+        print("Name", 15);
+        print("Age", 5);
+        print("State", 7);
+        print("Athlete Type", 15);
+        println("Point", 10);
+        for (String userID : games.get(index).getAthletes()) {
+            for (Athlete athlete : athletes) {
+                if (athlete.getUserID().equals(userID)) {
+                    athleteName = athlete.getName();
+                    state = athlete.getState();
+                    age = String.valueOf(athlete.getAge());
+                    switch (athlete.getAthleteType()) {
+                        case 1:
+                            athleteType = "Swimmer";
+                            break;
+                        case 2:
+                            athleteType = "Cyclist";
+                            break;
+                        case 3:
+                            athleteType = "Sprinter";
+                            break;
+                        case 4:
+                            athleteType = "Super Athlete";
+                            break;
+                    }
+                    point = String.valueOf(athlete.getPoint());
                     break;
                 }
-                athleteinf[4] = String.valueOf(athlete.getPoint());
             }
+            print(athleteName, 15);
+            print(age, 5);
+            print(state, 7);
+            print(athleteType, 15);
+            println(point, 10);
         }
-        return athleteinf;
     }
+    
 
     private void print(String message) {
         System.out.print(message);
