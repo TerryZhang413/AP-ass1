@@ -2,6 +2,9 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+import Ozlympic.Game;
+import Ozlympic.Menus;
+
 
 public class Driver {
     private ArrayList<Athlete> athletes = new ArrayList<Athlete>();
