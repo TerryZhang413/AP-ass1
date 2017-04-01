@@ -1,9 +1,8 @@
-<<<<<<< HEAD:src/Game.java
-=======
+
 package Ozlympic;
->>>>>>> 45cf8e8e280dcdc42481a05b9abfe65e6be57e5d:src/Ozlympic/Game.java
 
 import java.util.ArrayList;
+
 //-Yipeng
 public class Game {
     /**
