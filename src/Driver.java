@@ -140,7 +140,7 @@ public class Driver {
         return athleteinf;
     }
 
-    // display all of results respectively -Yanjie
+    // display all of results respectively -Yipeng
     private void showFinalResult() {
 
         int countGame = games.size();
