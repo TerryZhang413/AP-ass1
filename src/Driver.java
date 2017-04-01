@@ -178,7 +178,7 @@ public class Driver {
         }
     }
 
-    // generate a random time from minimum time to maximum time -Yanjie
+    // generate a random time from minimum time to maximum time -Yipeng
     private int randomTime(int miniTime, int maxTime) {
         Random random = new Random();
         return random.nextInt(maxTime - miniTime + 1) + miniTime;
@@ -413,6 +413,7 @@ public class Driver {
         }
     }
 
+    // star a game and show the result - Yipeng
     private void starGame(int gameType, int predictIndex) {
         int maxTime = 0, miniTime = 0;
         int resultCount;
@@ -423,6 +424,7 @@ public class Driver {
             return;
         }
         try {
+            // generate a minitime and maxtime depending game type
             switch (gameType) {
             case 1:
                 miniTime = 10;
@@ -437,6 +439,7 @@ public class Driver {
                 maxTime = 800;
                 break;
             }
+            // get the number of athlete in this game
             resultCount = games.get(gameIDIndex).getAthletes().size();
             for (int i = 0; i < resultCount; i++) {
                 results.add(randomTime(miniTime, maxTime));
@@ -541,6 +544,7 @@ public class Driver {
         return ranks;
     }
 
+    // overriding
     private void print(String message) {
         System.out.print(message);
     }
