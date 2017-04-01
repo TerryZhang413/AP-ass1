@@ -1,5 +1,4 @@
 package Ozlympic;
-
 //-Yipeng
 public class Official extends User {
     /**

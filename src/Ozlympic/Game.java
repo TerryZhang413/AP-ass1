@@ -1,17 +1,8 @@
-<<<<<<< HEAD:src/Game.java
-=======
 package Ozlympic;
->>>>>>> 45cf8e8e280dcdc42481a05b9abfe65e6be57e5d:src/Ozlympic/Game.java
 
 import java.util.ArrayList;
 //-Yipeng
 public class Game {
-    /**
-     * @date 19.3.2017
-     * @author Yipeng.Zhang
-     * @version 1.0
-     * @Description store Game's information
-     */
     private String gameID;
     private int type;
     private String officialID;
@@ -19,9 +10,7 @@ public class Game {
     private ArrayList<Integer> results = new ArrayList<Integer>();
     private ArrayList<Integer> ranks = new ArrayList<Integer>();
 
-    public Game(String gameID,
-            int type,
-            String officialID,
+    public Game(String gameID, int type, String officialID,
             ArrayList<String> athletes) {
         this.gameID = gameID;
         this.type = type;

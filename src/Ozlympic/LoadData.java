@@ -2,23 +2,20 @@ package Ozlympic;
 
 import java.io.IOException;
 import java.util.ArrayList;
-//-Yanjie
+//-Yipeng
 public class LoadData {
     private ArrayList<Athlete> athletes = new ArrayList<Athlete>();
     private ArrayList<Official> officials = new ArrayList<Official>();
-    private ArrayList<Game> game = new ArrayList<Game>();
-
-    // construction
-    public LoadData(ArrayList<Game> game,
-            ArrayList<Official> officials,
+    ArrayList<Game> game = new ArrayList<Game>();
+    //construction
+    public LoadData(ArrayList<Game> game, ArrayList<Official> officials,
             ArrayList<Athlete> athletes) {
         this.game = game;
         this.officials = officials;
         this.athletes = athletes;
 
     }
-
-    // method to read txt files
+    //method to read two txt
     public void loadData() {
         ReadFile readFile = new ReadFile();
         try {
@@ -30,9 +27,8 @@ public class LoadData {
         }
 
     }
-
-    // method to read offical information
-    private void loadOfficial(ArrayList<String> newOfficials) {
+    //method to read offical
+    public void loadOfficial(ArrayList<String> newOfficials) {
         try {
             for (int i = 0; i < newOfficials.size(); i = i + 4) {
                 this.officials.add(new Official(newOfficials.get(i),
@@ -44,14 +40,12 @@ public class LoadData {
             System.out.println("Loading official data is error!");
         }
     }
-
-    // mothod to read athlete informations
-    private void loadAthlete(ArrayList<String> newAthletes) {
+    //mothod to read athlete list
+    public void loadAthlete(ArrayList<String> newAthletes) {
         try {
             for (int i = 0; i < newAthletes.size(); i = i + 5) {
                 this.athletes.add(
-                        new Athlete(newAthletes.get(i),
-                                newAthletes.get(i + 1),
+                        new Athlete(newAthletes.get(i), newAthletes.get(i + 1),
                                 Integer.valueOf(newAthletes.get(i + 2)),
                                 newAthletes.get(i + 3),
                                 Integer.valueOf(newAthletes.get(i + 4))));

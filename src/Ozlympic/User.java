@@ -1,7 +1,7 @@
 package Ozlympic;
 
 //-Yipeng
-public class User {
+public abstract class User {
     /**
      * @date 19.3.2017
      * @author Yipeng.Zhang
