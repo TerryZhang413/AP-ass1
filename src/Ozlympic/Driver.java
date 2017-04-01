@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-//-Yipeng & Yanjie
+//-Yanjie
 public class Driver {
     private ArrayList<Athlete> athletes = new ArrayList<Athlete>();
     private ArrayList<Official> officials = new ArrayList<Official>();
@@ -13,14 +13,14 @@ public class Driver {
     private final int MIN_ATHLETE = 4;// minimum athlete in a game
     private int gameIDIndex = -1;// the present game index
     private Scanner keyBoard = new Scanner(System.in);
- // initialize data from file -Yanjie
+ // initialize data from file
     public Driver() {
         LoadData loadData = new LoadData(games, officials, athletes);
         loadData.loadData();
     }
 
     public void option() {
-        // display menus, input option, switch to different functions -Yipeng
+        // display menus, input option, switch to different functions
         int optionNumber = -1; // index of menus option
         int predictIndex = -1;
         int gameType = -1;
@@ -52,22 +52,22 @@ public class Driver {
                     showFinalPoint();
                     break;
                 case 6:
-                    System.out.println("See you!");
+                    System.out.println("See you!");      //exit
                     keyBoard.close();
                     System.exit(0);
                 default:
-                    println("The number must be in 1 to 6!");
+                    println("The number must be in 1 to 6!");  //check the input number if out of range
                     print("Enter an option:");
                 }
             } catch (Exception e) {
-                println("Input must be a number!");
+                println("Input must be a number!");          //check error if the input is not number
                 print("Enter an option:");
                 keyBoard.next();
             }
         } while (optionNumber != 6);
 
     }
-    //display the result on screen -Yanjie
+    //display the result on screen
     private void showResult(int index) {
         String official;
         String[] athleteinf = new String[5];
@@ -101,7 +101,7 @@ public class Driver {
             println(rank, 5);
         }
     }
-    // get officer's id based on userID -Yanjie
+    // get officer's id based on userID
     private String getOffName(String userID) {
         
         for (Official official : officials) {
@@ -110,16 +110,16 @@ public class Driver {
         }
         return null;
     }
- // Get athlete's information based on userID -Yipeng
+ // Get athlete's information based on userID
     private String[] getAthleteInf(String userID) {
         
         String[] athleteinf = new String[5];
         for (Athlete athlete : athletes) {
             if (athlete.getUserID().equals(userID)) {
-                athleteinf[0] = athlete.getName();
-                athleteinf[1] = String.valueOf(athlete.getAge());
-                athleteinf[2] = athlete.getState();
-                switch (athlete.getAthleteType()) {
+                athleteinf[0] = athlete.getName();            //name
+                athleteinf[1] = String.valueOf(athlete.getAge());  //age
+                athleteinf[2] = athlete.getState();				//state
+                switch (athlete.getAthleteType()) { 	//type
                 case 1:
                     athleteinf[3] = "Swimmer";
                     break;
@@ -138,19 +138,19 @@ public class Driver {
         }
         return athleteinf;
     }
-    // display all of results respectively -Yanjie
+    // display all of results respectively
     private void showFinalResult() {
         
         int countGame = games.size();
         if (countGame == 0) {
-            println("No game record!");
+            println("No game record!");			// if no game
             return;
         }
         for (int i = 0; i < countGame; i++) {
             showResult(i);
         }
     }
- // display all of information about athlete -Yanjie
+ // display all of information about athlete 
     private void showFinalPoint() {
         
         String[] athleteInf = new String[5];
@@ -174,16 +174,16 @@ public class Driver {
             }
         }
     }
- // generate a random time from minimum time to maximum time -Yanjie
+ // generate a random time from minimum time to maximum time 
     private int randomTime(int miniTime, int maxTime) {
         Random random = new Random();
         return random.nextInt(maxTime - miniTime + 1) + miniTime;
 
     }
- // select a game type from 1 to 3  -Yanjie
+ // select a game type from 1 to 3  
     private int selectGame(int gameType, int predictIndex) {
         Menus menus = new Menus();
-        int newGameType = 0;   //initial the ganme type
+        int newGameType = 0;   //initial the game type
         menus.sportMenus();
         do {
             try {
@@ -209,14 +209,14 @@ public class Driver {
                 // create a new game
                 newGame(gameType);
             } catch (Exception e) {
-                println("Error: Input must be an integer number!");
+                println("Error: Input must be an integer number!");  //input error check
                 print("Enter an option:");
                 keyBoard.next();
             }
         } while ((newGameType < 1) || (newGameType > 3));
         return gameType;
     }
-     //depending on the game type return the max game id -Yanjie
+     //depending on the game type return the max game id
     private String getMaxGameID(String gameID, int gameType) {
         String maxGameID = "null";
         int newGameID = 0;
@@ -229,13 +229,13 @@ public class Driver {
             maxGameID = String.valueOf(newGameID);
             switch (gameType) {
                 case 1:
-                    maxGameID = "S" + maxGameID;
+                    maxGameID = "S" + maxGameID;	//swimming
                     break;
                 case 2:
-                    maxGameID = "C" + maxGameID;
+                    maxGameID = "C" + maxGameID;  	//cycling
                     break;
                 case 3:
-                    maxGameID = "R" + maxGameID;
+                    maxGameID = "R" + maxGameID;	//running
             }
             return maxGameID;
         } catch (Exception e) {                       //error 
@@ -244,7 +244,7 @@ public class Driver {
         }
 
     }
-    //denpending on the ganme type, create a new game  -Yanjie
+    //denpending on the ganme type, create a new game 
     private void newGame(int gameType) {
         String maxGameID = "null";
         String officialID;
@@ -284,7 +284,7 @@ public class Driver {
         }
 
     }
-    // get offical information -Yanjie
+    // get offical information 
     private String getOfficial() {
         Random ranIndex = new Random();
         int sizeList;
@@ -299,7 +299,7 @@ public class Driver {
             return null;
         }
     }
-    //get athlete list  -Yanjie
+    //get athlete list 
     private ArrayList<String> getAthlete(int gameType) {
         try {
             ArrayList<String> temporaryList = new ArrayList<String>();
@@ -326,7 +326,7 @@ public class Driver {
             return null;
         }
     }
-    //predict the result -Yanjie
+    //predict the result 
     private int predict(int predictIndex) {
         // set prediction and check if it's legal
         int newIndex = -1;
@@ -357,7 +357,7 @@ public class Driver {
         return newIndex;
     }
     
-    // show game information in prediction menus -Yanjie
+    // show game information in prediction menus 
     private void showGameInf(int index) {
         String athleteName = null;
         String state = null;
@@ -400,20 +400,20 @@ public class Driver {
             println(point, 10);
         }
     }
-    
+    //start the game , implement the function
     private void starGame(int gameType, int predictIndex) {
         int maxTime = 0, miniTime = 0;
         int resultCount;
         ArrayList<Integer> results = new ArrayList<Integer>();
         ArrayList<Integer> ranks = new ArrayList<Integer>();
         if (gameType == -1) {
-            println("Error: Have to choose a type of game first!");
+            println("Error: Have to choose a type of game first!");   //start game after choosing a game type
             return;
         }
         try {
-            switch (gameType) {
+            switch (gameType) {	//range of time
                 case 1:
-                    miniTime = 10;
+                    miniTime = 10;	
                     maxTime = 20;
                     break;
                 case 2:
@@ -425,7 +425,7 @@ public class Driver {
                     maxTime = 800;
                     break;
             }
-            resultCount = games.get(gameIDIndex).getAthletes().size();
+            resultCount = games.get(gameIDIndex).getAthletes().size();  
             for (int i = 0; i < resultCount; i++) {
                 results.add(randomTime(miniTime, maxTime));
             }
@@ -437,54 +437,53 @@ public class Driver {
             showPredict(ranks, predictIndex);
             newGame(gameType);// prepare next game;
         } catch (Exception e) {
-            println("method 'starGame' is error!");
+            println("method 'starGame' is error!");  //error
         }
     }
-
+    //if the prediction is correct, congratulation is shown on screen
     private void showPredict(ArrayList<Integer> ranks, int predictIndex) {
         if (predictIndex != -1) {
-            if (ranks.get(predictIndex - 1) == 1) {
+            if (ranks.get(predictIndex - 1) == 1) {  //predict player is 1st
                 println("************************************************");
                 println("*Congratulations! Your prediction is right!!!!!*");
                 println("************************************************");
             }
         }
     }
-
-    private void refreshPoint() {
-        // find top 3 and add point into their documents
+ // find top 3 and add point into their documents
+    private void refreshPoint() {        
         int resultCount;
         resultCount = games.get(gameIDIndex).getAthletes().size();
         for (int i = 0; i < resultCount; i++) {
             switch (games.get(gameIDIndex).getRanks().get(i)) {
                 case 1:
-                    addPoint(games.get(gameIDIndex).getAthletes().get(i), 5);
+                    addPoint(games.get(gameIDIndex).getAthletes().get(i), 5);  //give first place 5 points
                     break;
                 case 2:
-                    addPoint(games.get(gameIDIndex).getAthletes().get(i), 2);
+                    addPoint(games.get(gameIDIndex).getAthletes().get(i), 2);  //give first place 2 points
                     break;
                 case 3:
-                    addPoint(games.get(gameIDIndex).getAthletes().get(i), 1);
+                    addPoint(games.get(gameIDIndex).getAthletes().get(i), 1);  //give first place 1 points
                     break;
             }
         }
     }
 
+    // add point based on users' ID and point
     private void addPoint(String athleteID, int addPoint) {
-        // add point based on users' ID and point
         int athleteCount;
         int point = 0;
         athleteCount = athletes.size();
-        for (int i = 0; i < athleteCount; i++) {
+        for (int i = 0; i < athleteCount; i++) {               //add points
             if (athleteID == athletes.get(i).getUserID()) {
                 point = athletes.get(i).getPoint() + addPoint;
                 athletes.get(i).setPoint(point);
                 return;
             }
         }
-
     }
 
+    // make a rank depending on the points of every player
     private ArrayList<Integer> rank(int index) {
         ArrayList<Integer> ranks = new ArrayList<Integer>();
         ArrayList<Integer> results = games.get(index).getResults();
