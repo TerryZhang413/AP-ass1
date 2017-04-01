@@ -1,3 +1,4 @@
+package Ozlympic;
 //-Yipeng
 public class Athlete extends User {
     /**
