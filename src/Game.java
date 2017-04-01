@@ -1,7 +1,5 @@
-
-
 import java.util.ArrayList;
-
+//-Yipeng
 public class Game {
     private String gameID;
     private int type;

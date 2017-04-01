@@ -1,6 +1,6 @@
 import java.io.IOException;
 import java.util.ArrayList;
-
+//-Yanjie
 public class LoadData {
     private ArrayList<Athlete> athletes = new ArrayList<Athlete>();
     private ArrayList<Official> officials = new ArrayList<Official>();
