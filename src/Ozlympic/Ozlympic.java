@@ -1,6 +1,7 @@
+package Ozlympic;
 
-public class Main {
-
+public class Ozlympic {
+	//-Yipeng
     public static void main(String[] args) {
         // TODO Auto-generated method stub
         // test source tree 1.1
