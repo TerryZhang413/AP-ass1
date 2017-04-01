@@ -4,15 +4,19 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-//-Yanjie
+/**
+ * @date 23.3.2017
+ * @author Yanjie
+ * @version 1.0
+ * @Description main class to drive program
+ */
+// -Yanjie
 public class Driver {
     private ArrayList<Athlete> athletes = new ArrayList<Athlete>();
     private ArrayList<Official> officials = new ArrayList<Official>();
     private ArrayList<Game> games = new ArrayList<Game>();
     private Screen screen = new Screen();
     private UserInfo userinfo;
-    private final int MAX_ATHLETE = 8;// maximum athlete in a game
-    private final int MIN_ATHLETE = 4;// minimum athlete in a game
     private int gameIDIndex = -1;// the present game index
     private Scanner keyBoard = new Scanner(System.in);
 
@@ -110,7 +114,7 @@ public class Driver {
         }
     }
 
-    // display all of results respectively -Yipeng
+    // display all of results respectively
     private void showFinalResult() {
 
         int countGame = games.size();
@@ -148,7 +152,7 @@ public class Driver {
         }
     }
 
-    // generate a random time from minimum time to maximum time -Yipeng
+    // generate a random time from minimum time to maximum time
     private int randomTime(int miniTime, int maxTime) {
         Random random = new Random();
         return random.nextInt(maxTime - miniTime + 1) + miniTime;
@@ -184,8 +188,8 @@ public class Driver {
                 // create a new game
                 newGame(gameType);
             } catch (Exception e) {
-                screen.println("Error: Input must be an integer number!"); // input error
-                                                                           // check
+                screen.println("Error: Input must be an integer number!");
+                // input error check
                 screen.print("Enter an option:");
                 keyBoard.next();
             }
@@ -339,22 +343,19 @@ public class Driver {
         }
     }
 
-    // star a game and show the result - Yipeng
+    // start the game , implement the function
     private void starGame(int gameType, int predictIndex) {
         int maxTime = 0, miniTime = 0;
         int resultCount;
         ArrayList<Integer> results = new ArrayList<Integer>();
         ArrayList<Integer> ranks = new ArrayList<Integer>();
         if (gameType == -1) {
-            screen.println("Error: Have to choose a type of game first!"); // start game
-                                                                           // after
-            // choosing a game
-            // type
+            screen.println("Error: Have to choose a type of game first!");
+            // start game
             return;
         }
         try {
-            // generate a minitime and maxtime depending game type
-            switch (gameType) {
+            switch (gameType) { // range of time
             case 1:
                 miniTime = 10;
                 maxTime = 20;
@@ -368,9 +369,7 @@ public class Driver {
                 maxTime = 800;
                 break;
             }
-            // get the number of athlete in this game
             resultCount = games.get(gameIDIndex).getAthletes().size();
-
             for (int i = 0; i < resultCount; i++) {
                 results.add(randomTime(miniTime, maxTime));
             }

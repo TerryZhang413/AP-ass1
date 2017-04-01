@@ -5,12 +5,6 @@ import java.util.ArrayList;
 
 //-Yipeng
 public class Game {
-    /**
-     * @date 19.3.2017
-     * @author Yipeng.Zhang
-     * @version 1.0
-     * @Description store Game's information
-     */
     private String gameID;
     private int type;
     private String officialID;
