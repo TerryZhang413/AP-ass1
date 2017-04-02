@@ -3,15 +3,20 @@ package Ozlympic;
 
 import java.util.ArrayList;
 
-//-Yipeng
 public class Game {
+	/**
+	 * @date 19.3.2017
+	 * @author Yipeng
+	 * @version 1.0
+	 * @Description stroe game information
+	 */
     private String gameID;
     private int type;
     private String officialID;
     private ArrayList<String> athletes = new ArrayList<String>();
     private ArrayList<Integer> results = new ArrayList<Integer>();
     private ArrayList<Integer> ranks = new ArrayList<Integer>();
-
+    //construction including each information in a game
     public Game(String gameID,
             int type,
             String officialID,
@@ -22,6 +27,7 @@ public class Game {
         this.athletes = athletes;
     }
 
+    //mutator
     public String getGameID() {
         return gameID;
     }

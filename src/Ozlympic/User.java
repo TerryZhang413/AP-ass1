@@ -1,6 +1,5 @@
 package Ozlympic;
 
-//-Yipeng
 public abstract class User {
     /**
      * @date 19.3.2017
@@ -19,7 +18,7 @@ public abstract class User {
         this.age = age;
         this.state = state;
     }
-
+    //mutator
     public String getUserID() {
         return userID;
     }

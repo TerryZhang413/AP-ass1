@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class UserInfo {
+	/**
+	 * @date 31.3.2017
+	 * @author Yipeng
+	 * @version 1.0
+	 * @Description call user information
+	 */
     private ArrayList<Athlete> athletes = new ArrayList<Athlete>();
     private ArrayList<Official> officials = new ArrayList<Official>();
     private final int MAX_ATHLETE = 8;// maximum athlete in a game

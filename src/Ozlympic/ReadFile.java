@@ -1,6 +1,5 @@
 package Ozlympic;
 
-//-Yipeng
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -21,7 +20,7 @@ public class ReadFile {
             BufferedReader buffReader = new BufferedReader(
                     new FileReader(address));
             // read line from buffer one by one
-            String data = buffReader.readLine();
+            String data = buffReader.readLine(); //input data
             while (data != null) {
                 // split data with " "
                 String[] dataArray = data.split(" ");
@@ -30,7 +29,7 @@ public class ReadFile {
                 }
                 data = buffReader.readLine();
             }
-            buffReader.close();
+            buffReader.close(); //close the stream
             return arrayList;
         } catch (Exception e) {
             return null;

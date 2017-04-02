@@ -1,6 +1,13 @@
 package Ozlympic;
 
 public class Screen {
+	/**
+	 * @date 1.4.2017
+	 * @author Yipeng
+	 * @version 1.0
+	 * @Description user interface ui
+	 */
+	//depending on different parameter,print different data
     public void print(String message) {
         System.out.print(message);
     }

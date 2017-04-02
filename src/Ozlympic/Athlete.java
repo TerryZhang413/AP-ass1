@@ -1,5 +1,4 @@
 package Ozlympic;
-//-Yipeng
 public class Athlete extends User {
     /**
      * @date 19.3.2017
@@ -9,14 +8,14 @@ public class Athlete extends User {
      */
     private int athleteType;
     private int point;
-
+    //subclass construction including 2 new parameters
     public Athlete(String userID, String name, int age, String state,
             int athleteType) {
         super(userID, name, age, state);
         this.setAthleteType(athleteType);
         this.setPoint(0);
     }
-
+    //mutator
     public int getAthleteType() {
         return athleteType;
     }

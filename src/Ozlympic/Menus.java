@@ -1,6 +1,5 @@
 package Ozlympic;
 
-//-Yipeng
 public class Menus {
     /**
      * @date 17.3.2017
@@ -8,7 +7,7 @@ public class Menus {
      * @version 1.0
      * @Description including all of menus
      */
-    public void sportMenus() {
+    public void sportMenus() {						//menu after select 1 in main menu
         System.out.println("Select a sport from 1 to 3");
         System.out.println("1. Swimming");
         System.out.println("2. Cycling");
@@ -17,7 +16,7 @@ public class Menus {
         System.out.print("Enter an opwtion:");
     }
 
-    public void mainMenus() {
+    public void mainMenus() {						//main menu,including 6 option to be chossen
         System.out.println("");
         System.out.println("Ozlympic Game");
         System.out.println("===================================");

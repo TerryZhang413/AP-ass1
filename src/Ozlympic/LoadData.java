@@ -2,8 +2,14 @@ package Ozlympic;
 
 import java.io.IOException;
 import java.util.ArrayList;
-//-Yipeng
+
 public class LoadData {
+	/**
+	 * @date 19.3.2017
+	 * @author Yipeng
+	 * @version 1.0
+	 * @Description read data from specific text
+	 */
     private ArrayList<Athlete> athletes = new ArrayList<Athlete>();
     private ArrayList<Official> officials = new ArrayList<Official>();
     ArrayList<Game> game = new ArrayList<Game>();
